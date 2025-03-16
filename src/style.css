@@ -1,0 +1,8 @@
+.container{
+  max-width: 1400px;
+}
+
+.link {
+  list-style-type: none;
+  text-decoration: none;
+}
