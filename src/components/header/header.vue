@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 <template>
-  <div class="header container">
+  <div class="header">
     <div class="header__items">
       <img width="50px" height="50px" src="/sneakers.png" alt="" />
       <div class="header__link">
@@ -12,6 +12,8 @@
 <style scoped>
 .header {
   margin: auto;
+  margin-bottom: 200px;
+  width: 90%;
 }
 .header__items {
   display: flex;

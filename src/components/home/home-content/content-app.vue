@@ -2,11 +2,13 @@
 import { ref, onMounted } from 'vue'
 import api from '../../../services/api'
 import ContentItems from './content-items.vue'
+import ContentFilter from './content-filter.vue'
 
 interface Sneakers {
   id: number
   name: string
   price: number
+  img: string
   isFavorite: boolean
 }
 
@@ -29,9 +31,16 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="content container">
+  <div class="content">
+    <ContentFilter />
     <ContentItems :sneakers="posts" />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.content {
+  margin: auto;
+  display: flex;
+  width: 90%;
+}
+</style>
