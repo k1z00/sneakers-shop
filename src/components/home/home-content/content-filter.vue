@@ -6,7 +6,7 @@
 </template>
 <style scoped>
 .content__filter {
-  width: 20%;
+  width: 30%;
   border: 1px solid black;
   border-radius: 20px;
   border: 1px solid #ccc;

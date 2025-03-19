@@ -3,14 +3,7 @@ import { ref, onMounted } from 'vue'
 import api from '../../../services/api'
 import ContentItems from './content-items.vue'
 import ContentFilter from './content-filter.vue'
-
-interface Sneakers {
-  id: number
-  name: string
-  price: number
-  img: string
-  isFavorite: boolean
-}
+import type { Sneakers } from '../../../types/types'
 
 const posts = ref<Sneakers[]>([])
 
