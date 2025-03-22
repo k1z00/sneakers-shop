@@ -1,48 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import api from '../../../services/api'
-
-interface Sneakers {
-  id: number
-  name: string
-  price: number
-  img: string
-  isFavorite: boolean
-}
-
-interface Bascked {
-  id: number
-  name: string
-  price: number
-  img: string
-  isFavorite: boolean
-}
+import { defineProps, defineEmits, ref } from 'vue'
+import type { Sneakers } from '../../../types/types'
 
 interface Props {
   sneakers: Sneakers[]
 }
 
+const props = defineProps<Props>()
+const emit = defineEmits(['toggle-basket'])
+
 const plusImage = ref('/plus.png')
 const checkImage = ref('/check.png')
-const props = defineProps<Props>()
 
-const handlePushBasket = async (id: number, sneak: Sneakers) => {
-  const sneaker = props.sneakers.find((snek) => snek.id === id)
-  if (sneaker) {
-    sneaker.isFavorite = !sneaker.isFavorite
-    if (sneaker.isFavorite) {
-      const bodyWithId: Bascked = {
-        id: sneak.id - 1,
-        name: sneak.name,
-        price: sneak.price,
-        img: sneak.img,
-        isFavorite: sneak.isFavorite,
-      }
-      await api.postBasket(bodyWithId)
-    } else {
-      await api.deleteBasket(sneaker.id)
-    }
-  }
+const handleToggleBasket = (id: number, sneak: Sneakers) => {
+  emit('toggle-basket', { id, sneak })
 }
 </script>
 
@@ -58,7 +29,7 @@ const handlePushBasket = async (id: number, sneak: Sneakers) => {
             <strong> {{ sneak.price }} руб</strong>
           </p>
         </div>
-        <button @click="handlePushBasket(sneak.id, sneak)" class="button-basket">
+        <button @click="handleToggleBasket(sneak.id, sneak)" class="button-basket">
           <img width="25px" height="25px" :src="sneak.isFavorite ? checkImage : plusImage" alt="" />
         </button>
       </div>
@@ -69,15 +40,14 @@ const handlePushBasket = async (id: number, sneak: Sneakers) => {
 <style scoped>
 .content__card {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  padding-left: 20px;
 }
+
 .content__items {
   display: flex;
   flex-direction: column;
   gap: 0px;
-  padding: 20px;
   border-radius: 15px;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -99,9 +69,11 @@ const handlePushBasket = async (id: number, sneak: Sneakers) => {
 .items__img {
   width: 100%;
 }
+
 .items__text {
   text-align: start;
 }
+
 .items__price {
   display: flex;
   justify-content: space-between;
@@ -109,10 +81,12 @@ const handlePushBasket = async (id: number, sneak: Sneakers) => {
   padding: 0px 20px;
   gap: 10px;
 }
+
 .price__label {
   color: #6e6e6e;
   margin-bottom: 10px;
 }
+
 .button-basket {
   background-color: white;
   border: none;

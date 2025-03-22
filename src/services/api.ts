@@ -46,6 +46,9 @@ export default {
     async getPosts() {
         return fetchAPI('/sneakers');
     },
+    async getBasket() {
+        return fetchAPI('/basket');
+    },
 
     async postBasket(body: Bascked) {
         return fetchAPI('/basket', 'POST', body);
